@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/joinus/")
 public class FrontController {
 
-	//추후 추가
+	//추후 추가...
 	//MeberService memberservice;
 	
-	//@Autowired로 멤버서비스 의존성 주입
+	//@Autowired로 멤버서비스 의존성 주입...
 	
 	@GetMapping("join.htm")
 	public String join() {
-		System.out.println("ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹㄴ");
 		return "joinus/join";
 	}
 	
