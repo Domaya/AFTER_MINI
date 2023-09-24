@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>filetable</title>
+<title>TTAC :: 회원가입</title>
 <style>
 #container {
 	width: 100%;
@@ -246,7 +246,7 @@
 				url : "idCheck/"+userid,
 				success : function(data) {
 					
-					 if(data == "N")  {
+					 if(data == "false")  {
 						$('#id_ck').empty(data);
 						$('#id_ck').append("<div id='p' style='color:red;'>사용 불가능한 아이디</div>");		//중복아이디일 때
 						console.log(data)

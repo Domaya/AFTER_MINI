@@ -77,6 +77,7 @@
 						<li class="menu__item"><a class="menu__item-link" href="/joinus/join.htm">Register</a></li>
 						<li class="menu__item"><a class="menu__item-link" href="/joinus/multimail.htm" >Multi-MAIL</a></li>
 						<li class="menu__item"><a class="menu__item-link" href="/joinus/filemail.htm" >File-MAIL</a></li>
+						<li class="menu__item"><a class="menu__item-link" href="#" >Chatting</a></li>
 					</ul>
 					<div class="menu__toggle">
 						<span class="menu__toggle-inner menu__toggle-inner--open">

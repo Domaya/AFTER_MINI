@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="doe.common.dao.MemberDao">
+	
+	<!-- 	Member getMember(String uid) -->
+	<select id="getMember" resultType="doe.common.dto.Member">
+		select userid, pwd, name, email, regdate from MEMBER order by userid
+	</select>
+	
+	<!--	int insert(Emp emp) -->
+	<insert id="insertMember" parameterType="doe.common.dto.Member">
+		insert into member(userid, name, pwd, email)
+		values(#{userid}, #{name}, #{pwd}, #{email})
+	</insert>
+
+<!--  userid Check(String id) -->
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		 SELECT count(userid) FROM MEMBER WHERE USERID=#{userid}
+	</select>
+	
+</mapper>
+
+
+
+
+

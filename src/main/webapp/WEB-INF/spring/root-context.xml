@@ -11,6 +11,34 @@
 
 	<context:annotation-config />
 
+	<!-- Properties 불러오기 -->
+	<context:property-placeholder location="/WEB-INF/config/*.properties" /> 
+	
+	<!-- DB 설정 START -->
+	<!-- JDBC hikariCP -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="username" value="${db.username}" /> 
+		<property name="password" value="${db.password}" /> 		
+	</bean>
+ 
+ 	<!-- hikariCP -->
+ 	<bean id="driverManagerDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"></constructor-arg>
+ 	</bean>
+ 
+ 	<!-- MyBatis -->
+ 	<bean id="sqlSessionFactoryBean"  class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="driverManagerDataSource"></property>
+    	<property name="mapperLocations" value="classpath*:doe/mapper/*xml" />
+	</bean>
+
+ 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+  		<constructor-arg index="0" ref="sqlSessionFactoryBean"/>
+ 	</bean>
+ 	<!-- DB설정 END -->
+	
 	<bean id="internalResourceViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -27,8 +55,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.naver.com" />
 		<property name="port" value="587" />
-		<property name="username" value="hjdo0211@naver.com" />
-		<property name="password" value="wjdahlove98!" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.debug">true</prop>
