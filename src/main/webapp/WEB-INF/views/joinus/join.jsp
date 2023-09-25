@@ -224,7 +224,7 @@
 				type : "POST",
 				url : "emailAuth/",
 				data : {
-					"email" : a
+					"email" : a[0]
 				}, 
 				success : function(data) {
 					swal("Check!", "메일이 발송되었습니다.", "success");
