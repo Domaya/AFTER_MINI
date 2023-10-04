@@ -184,12 +184,12 @@
 				//alert("비밀번호가 일치하지 않습니다.");
 				return false;
 			}
-
+			/*
 			if ($('#email_auth_key').val() != email_auth_cd) {
 				swal("Check!", " 인증번호가 일치하지 않습니다.", "warning");
 				//alert("인증번호가 일치하지 않습니다.");
 				return false;
-			}
+			}*/
 			
 			if ($('#email').val() == '') {
 				swal("Check!", " 이메일을 입력해 주세요.", "warning");
@@ -261,6 +261,33 @@
 			});
 		}); 
 
+ 		$('#email_auth_key').focusout(function() {
+			var email = $('.email').val();
+			var userAuthKey = $('#email_auth_key').val();
+			$.ajax({
+				type : "POST",
+				url : "authCheck",
+				data : JSON.stringify({
+					"email" : email,
+					"userAuthKey" : userAuthKey
+				}),
+				dataType : 'json',
+				contentType : "application/json",
+				success : function(data) {
+					
+					 if(data == "correct")  {
+						$('#auth_ck').empty(data);
+						$('#auth_ck').append("<div id='p' style='color:red;'>올바른 인증번호</div>");
+						console.log(data)
+					} else if(data == "incorrect"){
+						$('#auth_ck').empty(data);
+						 $('#auth_ck').append("<div id='p' style='color:green;'>올바르지 않은 인증번호</div>");
+					}
+				},
+				error : function(data) {
+				}
+			});
+		}); 
 		/* $('#name').focusout(function() {
 			var nickname = $('#name').val();
 
@@ -303,6 +330,7 @@
 							<button type="button" id="email_auth_btn" class="email_auth_btn">인증번호 받기</button>
 						</div>
 						<input type="text" placeholder="인증번호 입력" id="email_auth_key">
+						<span id="auth_ck" ></span> 
 					</div>
 					<button type="button" id="join" class="join_btn">가입하기</button>
 				</form>

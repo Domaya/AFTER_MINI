@@ -1,5 +1,8 @@
 package doe.common.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -22,11 +25,16 @@ public class MailService {
 	@Value("${mail.username}")
 	String username;
 	
+	private HashMap<String, String> authList = new HashMap<>();
 	
-	public String sendAuthMail(String email) {
+	public void sendAuthMail(String email) {
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111; // 6자리 난수 생성
-
+		Integer.toString(checkNum);
+		//스프링 빈 생명주기
+		authList.put(email, Integer.toString(checkNum));
+		////
+		
 		// 메일 본문 템플릿
 		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 <" + checkNum + "> 입니다." + "<br>"
 				+ "홈페이지로 돌아가서 해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
@@ -62,6 +70,18 @@ public class MailService {
 			e.printStackTrace();
 		}
 
-		return Integer.toString(checkNum);
+	}
+	
+	public String checkAuthMail(String email, String userAuthNum) {
+		try {
+
+			String originalNum = authList.get(email);
+			return originalNum.equals(userAuthNum) ? "correct" : "incorrect";
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "exception";
+		}
+		
 	}
 }
