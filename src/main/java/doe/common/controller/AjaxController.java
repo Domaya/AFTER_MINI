@@ -51,29 +51,31 @@ public class AjaxController {
 		return "success";
 	}
 	//인증번호 검사
-		@RequestMapping(value = "/joinus/authCheck", method = RequestMethod.POST)
-		public String checkMail(@RequestBody HashMap<String, Object> data) {
+	@RequestMapping(value = "/joinus/authCheck", method = RequestMethod.POST)
+	public String checkMail(@RequestBody HashMap<String, Object> data) {
 			
-			String email = (String) data.get("email");
-			String userAuthKey = (String) data.get("userAuthKey");
+		String email = (String) data.get("email");
+		String userAuthKey = (String) data.get("userAuthKey");
 			
-			String result = mailService.checkAuthMail(email, userAuthKey);
-			
-			return result;
-		}
+		String result = mailService.checkAuthMail(email, userAuthKey);
+		
+		return result;
+	}
 	
 	// 회원가입
 	@PostMapping("/joinus/join")
-	public ResponseEntity<String> register(@RequestBody HashMap<String, Object> data){//(Member member, String userAuthKey) {
-		//인증번호 검사 후
-		//회원가입 로직 실행
-		Member member = (Member) data.get("member");
-		String userAuthKey = (String) data.get("userAuthKey");
+	public ResponseEntity<String> register(@RequestBody Member member){//(Member member, String userAuthKey) {
+		//회원가입
+		//Member member = (Member) data.get("member");	
+		HttpStatus status = null;
+		String result = memberservice.register(member);
+		if(result.equals("success")) {
+			status = HttpStatus.OK;
+		}else if(result.equals("fail")) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
 		
-		String check = "N";
-		
-		mailService.checkAuthMail(member.getEmail(), userAuthKey);
-		return null;
+		return new ResponseEntity<String>(result, status);
 		/*
 		System.out.println("member1 : " + member);
 		try {

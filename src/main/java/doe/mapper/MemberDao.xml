@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--	int insert(Emp emp) -->
 	<insert id="insertMember" parameterType="doe.common.dto.Member">
-		insert into member(userid, name, pwd, email)
-		values(#{userid}, #{name}, #{pwd}, #{email})
+		insert into member(userid, name, pwd, email, regdate)
+		values(#{userid}, #{name}, #{pwd}, #{email}, sysdate)
 	</insert>
 
 <!--  userid Check(String id) -->

@@ -20,18 +20,24 @@ public class MemberService {
 		this.sqlsession = sqlsession;
 	}
 
-	public int register(Member member) {
+	public String register(Member member) {
 		
 		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
 		int result = 0;
+		String msg = "";
 		try {
 			result = memberdao.insertMember(member);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(result > 0) {
+			msg = "success";
+		}else {
+			msg = "fail";
+		}
 		
-		return result;
+		return msg;
 	}
 	
 	public String checkId(String id) {

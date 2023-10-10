@@ -125,18 +125,32 @@
 	function fn_join(){
 	      console.log('fn_join')
 	     // var flag = false;
+	      /*
 	      var f = $('#join_frm');
 	      var formData = f.serialize();
 	      var member = formData;
+	      */
+	      var userid = $('#userid').val();
+	      var pwd = $('#password').val();
+	      var name = $('#name').val();
+	      var email = $('#email').val();
+	      var member = {
+	    	  "userid" : userid,
+	    	  "pwd" : pwd,
+	    	  "name" : name,
+	    	  "email" : email
+	      }
+	      console.log(member)
 	       $.ajax({
 	            type : "POST",
-	            url : "join",
+	            url : "/joinus/join",
 	            async : false,
-	            data: member,
+	            data: JSON.stringify(member),
+	            contentType : 'application/json; charset=utf-8',
 	            success: function(data){
 	               console.log("join.htm post")
 	               console.log(data)
-	               if(data == "Y"){
+	               if(data == "success"){
 /* 	            	   location.href="/index.htm";  */
 	            	   swal("Check!", " 회원가입이 완료되었습니다.", "success");
 	               }else{
@@ -271,20 +285,22 @@
 					"email" : email,
 					"userAuthKey" : userAuthKey
 				}),
-				dataType : 'json',
 				contentType : "application/json",
 				success : function(data) {
-					
-					 if(data == "correct")  {
+					console.log("success")
+					 if(data == "correct") {
+						 console.log("코렉트")
 						$('#auth_ck').empty(data);
-						$('#auth_ck').append("<div id='p' style='color:red;'>올바른 인증번호</div>");
+						$('#auth_ck').append("<div id='p' style='color:green;'>올바른 인증번호</div>");
 						console.log(data)
 					} else if(data == "incorrect"){
+						console.log("인코렉트")
 						$('#auth_ck').empty(data);
-						 $('#auth_ck').append("<div id='p' style='color:green;'>올바르지 않은 인증번호</div>");
+						 $('#auth_ck').append("<div id='p' style='color:red;'>올바르지 않은 인증번호</div>");
 					}
 				},
-				error : function(data) {
+				error : function(request,status,error) {
+					console.log("에러....code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
 		}); 
@@ -330,7 +346,7 @@
 							<button type="button" id="email_auth_btn" class="email_auth_btn">인증번호 받기</button>
 						</div>
 						<input type="text" placeholder="인증번호 입력" id="email_auth_key">
-						<span id="auth_ck" ></span> 
+						<span id="auth_ck"></span> 
 					</div>
 					<button type="button" id="join" class="join_btn">가입하기</button>
 				</form>
