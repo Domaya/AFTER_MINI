@@ -152,7 +152,9 @@
 	               console.log(data)
 	               if(data == "success"){
 /* 	            	   location.href="/index.htm";  */
-	            	   swal("Check!", " 회원가입이 완료되었습니다.", "success");
+	            	   swal("Check!", " 회원가입이 완료되었습니다.", "success").then(function(){
+	            			location.href="${pageContext.request.contextPath}/";                   
+	            	   });
 	               }else{
 	            	   swal("Check!", " 회원가입에 실패하였습니다.", "error");
 	               }
