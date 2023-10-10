@@ -73,7 +73,7 @@
 				<nav class="menu">
 					<ul class="menu__inner">
 						<li class="menu__item"><a class="menu__item-link" href="#">HOME</a></li>
-						<li class="menu__item"><a class="menu__item-link" href="#">Log In</a></li>
+						<li class="menu__item"><a class="menu__item-link" href="/joinus/login.htm">Log In</a></li>
 						<li class="menu__item"><a class="menu__item-link" href="/joinus/join.htm">Register</a></li>
 						<li class="menu__item"><a class="menu__item-link" href="/joinus/multimail.htm" >Multi-MAIL</a></li>
 						<li class="menu__item"><a class="menu__item-link" href="/joinus/filemail.htm" >File-MAIL</a></li>

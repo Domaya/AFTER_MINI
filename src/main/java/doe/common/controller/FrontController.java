@@ -27,4 +27,9 @@ public class FrontController {
 	public String fileMail() {
 		return "joinus/fileMail";
 	}
+	
+	@GetMapping("login.htm")
+	public String login() {
+		return "joinus/login";
+	}
 }
